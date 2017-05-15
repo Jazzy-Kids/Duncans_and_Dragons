@@ -48,3 +48,8 @@ False
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
+Setting up 4 worker threads for Enlighten.
+  Thread -> id: 35fc -> priority: 1 
+  Thread -> id: 1444 -> priority: 1 
+  Thread -> id: 28d8 -> priority: 1 
+  Thread -> id: 31c8 -> priority: 1 
