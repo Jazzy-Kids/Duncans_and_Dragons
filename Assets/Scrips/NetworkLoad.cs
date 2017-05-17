@@ -11,12 +11,13 @@ public class NetworkLoad : MonoBehaviour {
     public InputField ip;
     public InputField port;
     public NetworkManager manager;
+    private string type = "null";
 
     void Awake()
     {
-        Debug.Log("Loading Network Manager");
+        //Debug.Log("Loading Network Manager");
         //manager = GetComponent<NetworkManager>();
-        Debug.Log(manager.networkAddress);
+        //Debug.Log(manager.networkAddress);
     }
 
     public void startClient()
@@ -24,11 +25,11 @@ public class NetworkLoad : MonoBehaviour {
         int intPort = 0;
         if (Int32.TryParse(port.text.ToString(), out intPort))
         {
-            Debug.Log("Starting on Client Port:");
-            Debug.Log(intPort);
+            //Debug.Log("Starting on Client Port:");
+            //Debug.Log(intPort);
         }
         else
-            Debug.Log("Could not parse Port");
+            //Debug.Log("Could not parse Port");
 
         /*Network.Connect("localhost", 7777);
         Debug.Log("Connecting to server");
@@ -39,6 +40,7 @@ public class NetworkLoad : MonoBehaviour {
 
         manager.StartClient();
 
+        type = "client";
     }
 
     public void startServer()
@@ -46,11 +48,11 @@ public class NetworkLoad : MonoBehaviour {
         int intPort = 0;
         if (Int32.TryParse(port.text.ToString(), out intPort))
         {
-            Debug.Log("Starting on Server Port:");
-            Debug.Log(intPort);
+            //Debug.Log("Starting on Server Port:");
+            //Debug.Log(intPort);
         }
         else
-            Debug.Log("Could not parse Port");
+            Debug.Log("ERORR: Could not parse Port");
 
         bool useNat = !Network.HavePublicAddress();
         /*Network.InitializeServer(32, 7777, false);
@@ -61,6 +63,8 @@ public class NetworkLoad : MonoBehaviour {
 
 
         manager.StartServer();
+
+        type = "server";
     }
 
     public void startLan()
@@ -68,11 +72,11 @@ public class NetworkLoad : MonoBehaviour {
         int intPort = 0;
         if (Int32.TryParse(port.text.ToString(), out intPort))
         {
-            Debug.Log("Starting on Server Port:");
-            Debug.Log(intPort);
+            //Debug.Log("Starting on Server Port:");
+            //Debug.Log(intPort);
         }
         else
-            Debug.Log("Could not parse Port");
+            Debug.Log("ERROR: Could not parse Port");
 
         //manager.networkPort = intPort;
         //manager.networkAddress = ip.text.ToString();
@@ -81,6 +85,28 @@ public class NetworkLoad : MonoBehaviour {
         //manager.StartClient();
         manager.StartHost();
 
+        type = "host";
+    }
+
+    public void quit()
+    {
+        
+        if (type == "client")
+        {
+            manager.StopClient();
+        }
+        else if (type == "server")
+        {
+            manager.StopServer();
+        }
+        else if (type == "host")
+        {
+            manager.StopHost();
+        }
+        else 
+        {
+            Debug.Log("ERROR: Cannot exit network");
+        }
     }
 
 }
